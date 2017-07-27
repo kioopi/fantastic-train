@@ -1,0 +1,21 @@
+## Add custom options here
+
+## Distributed Erlang Options
+##  The cookie needs to be configured prior to vm boot for
+##  for read only filesystem.
+
+# -name slider@0.0.0.0
+-setcookie INmTCREQyjn5CObLQ0EPDjoAz3Yu61KW75CMDZkrRyZbWl/tB2bo5xrNVdN+lZ5w
+
+## Use Ctrl-C to interrupt the current shell rather than invoking the emulator's
+## break handler and possibly exiting the VM.
++Bc
+
+## Start the Elixir shell
+
+-noshell
+-user Elixir.IEx.CLI
+
+## Options added after -extra are interpreted as plain arguments and
+## can be retrieved using :init.get_plain_arguments().
+-extra --no-halt
