@@ -13,7 +13,9 @@ defmodule Slider.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
-      Slider.Server.child_spec(output_module)
+      Slider.Server.child_spec(output_module),
+      Slider.ShiftRegister.Server.child_spec(),
+      Slider.Rotary.child_spec()
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
