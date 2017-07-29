@@ -24,12 +24,10 @@ defmodule Slider.ShiftRegister do
   end
 
   defp write_bits(%ShiftRegister{latch: latch}, []) do
-    Logger.debug "latch"
     Gpio.write(latch, 1)
   end
 
   defp write_bit(%ShiftRegister{data: data, clock: clock}, bit) do
-    Logger.debug "Writing bit #{bit}"
     Gpio.write(clock, 0)
     Gpio.write(data, bit)
     Gpio.write(clock, 1)
