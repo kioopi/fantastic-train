@@ -1,14 +1,28 @@
-# Elixir Nerves Raspberry Pi LED Array 
+# Elixir Nerves Raspberry Pi LED Array
 
-[![Video of hardware running the code (http://img.youtube.com/vi/1KTMTBpTV34/0.jpg)](http://www.youtube.com/watch?v=1KTMTBpTV34 "Video")
+[![Video of hardware running the code](http://img.youtube.com/vi/1KTMTBpTV34/0.jpg)](http://www.youtube.com/watch?v=1KTMTBpTV34 "Video")
 
 
 Very basic Nerves project controlling a number of LEDs with a turning dial.
 
-The LEDs are controlled by two daisy-chained 74HC595 shift registers. 
+The LEDs are controlled by two daisy-chained 74HC595 shift registers.
 The turning dial is a KY040 rotary encoder.
 
+## Run the code
 
+ * Clone the repo
+ * Create a `config/secrets.exs` file and edit it
+ * Get and solder and wire the hardware correctly
+ * mix deps.get
+ * mix firmware
+ * mix firmware.burn
+ * put sd into rasp
+ * enjoy
+
+ * change code
+ * mix firmware
+ * mix firmware.push `ip of your rasp3` --target rpi3
+ * updated over the air!
 
 
 ## Targets

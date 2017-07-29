@@ -5,7 +5,7 @@ defmodule Slider.Server do
   # Client API
 
   def child_spec(output_module) do
-    Supervisor.Spec.worker(__MODULE__, [%{ leds: [0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0], output_module: output_module}])
+    Supervisor.Spec.worker(__MODULE__, [%{ leds: [0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0], output_module: output_module}])
   end
 
   def start_link(%{ leds: leds, output_module: output_module }) do

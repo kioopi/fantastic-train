@@ -40,7 +40,11 @@ defmodule Slider.Mixfile do
 
   def application(_target) do
     [mod: {Slider.Application, [output_module: Slider.LEDOutput]},
-     extra_applications: [:logger]]
+     extra_applications: [
+       :logger,
+       :nerves_interim_wifi,
+       :nerves_firmware_http
+    ]]
   end
 
   # Dependencies can be Hex packages:
@@ -53,7 +57,12 @@ defmodule Slider.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   def deps do
-    [{:nerves, "~> 0.6", runtime: false}] ++
+    [
+      {:nerves, "~> 0.6", runtime: false},
+      {:nerves_interim_wifi, "~> 0.2.0"},
+      {:nerves_firmware_http, "~> 0.4"},
+      {:poison, "~> 3.1"}
+    ] ++
     deps(@target)
   end
 

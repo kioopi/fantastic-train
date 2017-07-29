@@ -15,12 +15,21 @@ defmodule Slider.Application do
     children = [
       Slider.Server.child_spec(output_module),
       Slider.ShiftRegister.Server.child_spec(),
-      Slider.Rotary.child_spec()
+      Slider.Rotary.child_spec(),
+      worker(Task, [fn -> setup_network() end], restart: :transient)
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Slider.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp setup_network do
+    Nerves.InterimWiFi.setup("wlan0", [
+      ssid: Application.get_env(:slider, :ssid),
+      key_mgmt: :"WPA-PSK",
+      psk: Application.get_env(:slider, :psk),
+    ])
   end
 end

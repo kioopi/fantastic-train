@@ -19,6 +19,19 @@ use Mix.Config
 
 # import_config "#{Mix.Project.config[:target]}.exs"
 
-config :bootloader,
+config(:bootloader, [
   init: [:nerves_runtime],
   app: :slider
+])
+
+config(:nerves_interim_wifi, [
+  regulatory_domain: "DE"
+])
+
+config(:nerves_firmware_http, [
+  json_provider: Poison,
+  json_opts: []
+])
+
+
+import_config("secrets.exs")
