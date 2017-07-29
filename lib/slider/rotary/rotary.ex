@@ -1,12 +1,12 @@
 defmodule Slider.Rotary do
-  defstruct [:data, :clock]
+  defstruct [:data, :clock, :clock_pin, :callback_mod]
   require Logger
 
   alias Slider.Rotary
 
   # TODO put these in config
-  @datapin 17
-  @clockpin 22
+  @datapin 2
+  @clockpin 3
 
   def child_spec() do  # the pins  should come as param here
     Supervisor.Spec.worker(__MODULE__, [%{ data: @datapin, clock: @clockpin, callback_mod: Slider.Server  }])
@@ -22,26 +22,33 @@ defmodule Slider.Rotary do
   def start_link(pins) do
     rotary = get_struct(pins)
 
-    { :ok, spawn fn -> loop(rotary) end }
+    { :ok, spawn fn -> Gpio.set_int(rotary.clock, :falling); loop(rotary) end }
   end
 
   defp loop(%{ data: data, clock: clock, clock_pin: clock_pin, callback_mod: callback_mod } = rotary) do
-    GIPO.set_int(clock, :rising)
-
     receive do
-      { :gpio_interrupt, ^clock_pin, :rising } -> case read(data) do
+      { :gpio_interrupt, ^clock_pin, :falling } -> if is_low(clock) do
+        case read(data) do
           :up -> callback_mod.move_up()
           :down -> callback_mod.move_down()
+        end
       end
     end
 
     loop(rotary)
   end
 
+  defp is_low(clock) do
+    case Gpio.read(clock) do
+      0 -> true
+      1 -> false
+    end
+  end
+
   defp read(data) do
-    case GIPO.read(data) do
-      1 -> :up
-      0 -> :down
+    case Gpio.read(data) do
+      0 -> :up
+      1 -> :down
     end
   end
 end
