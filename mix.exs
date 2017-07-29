@@ -62,7 +62,8 @@ defmodule Slider.Mixfile do
   def deps(target) do
     [ system(target),
       {:bootloader, "~> 0.1"},
-      {:nerves_runtime, "~> 0.4"}
+      {:nerves_runtime, "~> 0.4"},
+      {:elixir_ale, "~> 0.5.7"}
     ]
   end
 
