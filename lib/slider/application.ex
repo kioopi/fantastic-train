@@ -9,13 +9,16 @@ defmodule Slider.Application do
 
     Logger.debug('Start App')
 
-    { :ok, output_module } =  Keyword.fetch(args, :output_module)
+    { :ok, output_module } = Keyword.fetch(args, :output_module)
+
+    rotary_datapin = Application.get_env(:slider, Slider.Rotary, :datapin)
+    rotary_clockpin = Application.get_env(:slider, Slider.Rotary, :clockpin)
 
     # Define workers and child supervisors to be supervised
     children = [
       Slider.Server.child_spec(output_module),
       Slider.ShiftRegister.Server.child_spec(),
-      Slider.Rotary.child_spec(),
+      Slider.Rotary.child_spec(%{ data: rotary_datapin, clock: rotary_clockpin, callback_mod: Slider.Server }),
       worker(Task, [fn -> setup_network() end], restart: :transient)
     ]
 

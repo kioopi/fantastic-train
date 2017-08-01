@@ -34,12 +34,16 @@ defmodule Slider.Mixfile do
   # applications which could cause the host to fail. Because of this, we only
   # invoke Slider.start/2 when running on a target.
   def application("host") do
-    [mod: {Slider.Application, [output_module: Slider.ConsoleOutput]},
+    [mod: {Slider.Application, [
+      output_module: Slider.ConsoleOutput
+    ]},
       extra_applications: [:logger]]
   end
 
   def application(_target) do
-    [mod: {Slider.Application, [output_module: Slider.LEDOutput]},
+    [mod: {Slider.Application, [
+      output_module: Slider.LEDOutput
+    ]},
      extra_applications: [
        :logger,
        :nerves_interim_wifi,
@@ -59,9 +63,6 @@ defmodule Slider.Mixfile do
   def deps do
     [
       {:nerves, "~> 0.6", runtime: false},
-      {:nerves_interim_wifi, "~> 0.2.0"},
-      {:nerves_firmware_http, "~> 0.4"},
-      {:poison, "~> 3.1"}
     ] ++
     deps(@target)
   end
@@ -72,7 +73,10 @@ defmodule Slider.Mixfile do
     [ system(target),
       {:bootloader, "~> 0.1"},
       {:nerves_runtime, "~> 0.4"},
-      {:elixir_ale, "~> 0.5.7"}
+      {:elixir_ale, "~> 0.5.7"},
+      {:nerves_interim_wifi, "~> 0.2.0"},
+      {:nerves_firmware_http, "~> 0.4"},
+      {:poison, "~> 3.1"}
     ]
   end
 

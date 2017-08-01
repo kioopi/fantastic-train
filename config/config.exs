@@ -34,4 +34,10 @@ config(:nerves_firmware_http, [
 ])
 
 
+config(:slider, Slider.Rotary, [
+  datapin: 2,
+  clockpin: 3
+])
+
 import_config("secrets.exs")
+
