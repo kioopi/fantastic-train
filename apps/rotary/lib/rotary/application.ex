@@ -6,20 +6,24 @@ defmodule Rotary.Application do
   use Application
   require Logger
 
-  def start(_type, _args) do
+  def start(_type, args) do
     import Supervisor.Spec, warn: false
 
     Logger.debug('Starting Rotary App')
 
-    datapin = Application.get_env(:rotary, :datapin)
-    clockpin = Application.get_env(:rotary, :clockpin)
+    { :ok, callback_mod } =  Keyword.fetch(args, :callback_mod)
+    { :ok, input_mod } =  Keyword.fetch(args, :input_mod)
+    { :ok, datapin } =  Keyword.fetch(args, :data_pin)
+    { :ok, clockpin } =  Keyword.fetch(args, :clock_pin)
 
     # Define workers and child supervisors to be supervised
     children = [
-      Rotary.child_spec(%{ data: datapin, clock: clockpin, callback_mod: Slider.Server })
-
-      # Starts a worker by calling: Rotary.Worker.start_link(arg1, arg2, arg3)
-      # worker(Rotary.Worker, [arg1, arg2, arg3]),
+      Rotary.child_spec(%{
+        data: datapin,
+        clock: clockpin,
+        callback_mod: callback_mod,
+        input_mod: input_mod
+      })
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
