@@ -61,7 +61,8 @@ defmodule Slider.Mixfile do
       {:nerves, "~> 0.7", runtime: false},
       {:poison, "~> 3.1"},
       {:shift_register, in_umbrella: true},
-      {:rotary, in_umbrella: true}
+      {:rotary, in_umbrella: true},
+      {:ui, in_umbrella: true}
     ] ++
     deps(@target)
   end
@@ -76,7 +77,6 @@ defmodule Slider.Mixfile do
       {:nerves_firmware_http, "~> 0.4"}
     ]
   end
-
 
   def system("rpi"), do: {:nerves_system_rpi, ">= 0.0.0", runtime: false}
   def system("rpi0"), do: {:nerves_system_rpi0, ">= 0.0.0", runtime: false}

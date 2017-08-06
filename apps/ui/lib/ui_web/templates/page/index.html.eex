@@ -1,0 +1,6 @@
+<div>
+  <p>Enter 0 for a LED that is turned of and 1 for a LED that is turned on.</p>
+  <input type='text' id='leds' class='form-control leds' placeholder='LEDs' />
+  <p>16 LEDs maximum.</p>
+</div>
+
