@@ -1,14 +1,15 @@
-defmodule Slider.Rotary do
+defmodule Rotary do
   defstruct [:data, :clock, :clock_pin, :callback_mod]
   require Logger
 
-  alias Slider.Rotary
-
   def child_spec(%{ data: _datapin, clock: _clockpin, callback_mod: _callback_mod } = args) do
+    Logger.debug('Getting Rotary spec')
     Supervisor.Spec.worker(__MODULE__, [args])
   end
 
   def start_link(pins) do
+    Logger.debug('Starting Rotary Process')
+
     rotary = get_struct(pins)
 
     { :ok, spawn fn -> Gpio.set_int(rotary.clock, :falling); loop(rotary) end }

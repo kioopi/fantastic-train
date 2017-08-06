@@ -8,3 +8,4 @@ defmodule Slider do
     leds ++ [first_led]
   end
 end
+

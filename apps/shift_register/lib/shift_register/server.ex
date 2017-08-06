@@ -1,7 +1,6 @@
-defmodule Slider.ShiftRegister.Server do
+defmodule ShiftRegister.Server do
   use GenServer
   require Logger
-  alias Slider.ShiftRegister
 
   # TODO put these in config
   @datapin 17
@@ -15,7 +14,9 @@ defmodule Slider.ShiftRegister.Server do
   end
 
   def start_link(pins) do
-    Logger.debug('start_link Slider.ShiftRegister.Server')
+    Logger.debug('Starting ShiftRegister GenServer')
+
+    Logger.debug('start_link ShiftRegister.Server')
     GenServer.start_link(__MODULE__, pins, name: __MODULE__)
   end
 
@@ -26,7 +27,7 @@ defmodule Slider.ShiftRegister.Server do
   # Karl Becks
 
   def init(pins) do
-    Logger.debug('Init Slider.ShiftRegister.Server')
+    Logger.debug('Init ShiftRegister.Server')
 
     register = ShiftRegister.get_struct(pins)
 

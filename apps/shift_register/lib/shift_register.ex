@@ -1,8 +1,6 @@
-defmodule Slider.ShiftRegister do
+defmodule ShiftRegister do
   defstruct [:data, :clock, :latch]
   require Logger
-
-  alias Slider.ShiftRegister
 
   def get_struct(%{ data: data, clock: clock, latch: latch }) do
     {:ok, data_pid } = Gpio.start_link(data, :output)
