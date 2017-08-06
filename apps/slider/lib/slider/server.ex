@@ -21,6 +21,10 @@ defmodule Slider.Server do
     GenServer.call(__MODULE__, :move_down)
   end
 
+  def set(leds) do
+    GenServer.call(__MODULE__, { :set, leds })
+  end
+
   # Karl Becks
 
   def init([leds, output]) do
@@ -34,6 +38,10 @@ defmodule Slider.Server do
 
   def handle_call(:move_down, _from, %{ leds: leds } = state) do
     {:reply, :ok, update_leds(Slider.move_down(leds), state)}
+  end
+
+  def handle_call({ :set, new_leds }, _from, state) do
+    {:reply, :ok, update_leds(Slider.set(new_leds), state)}
   end
 
   defp update_leds(leds, state) do

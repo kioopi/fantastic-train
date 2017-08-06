@@ -9,4 +9,8 @@ defmodule SliderServerTest do
   test "move_down" do
     assert Slider.Server.move_down() == :ok
   end
+
+  test "set" do
+    assert Slider.Server.set([0,0,1,1) == :ok
+  end
 end

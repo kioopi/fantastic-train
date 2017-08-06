@@ -12,4 +12,8 @@ defmodule SliderTest do
     assert Slider.move_down([0,0,0,1]) == [0,0,1,0]
     assert Slider.move_down([1,0,0,0]) == [0,0,0,1]
   end
+
+  test "set" do
+    assert Slider.set([0,1,0,0]) == [0,1,0,0]
+  end
 end

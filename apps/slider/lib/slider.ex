@@ -7,5 +7,7 @@ defmodule Slider do
   def move_down([first_led|leds]) do
     leds ++ [first_led]
   end
+
+  def set(leds), do: leds
 end
 
